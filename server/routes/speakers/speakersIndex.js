@@ -6,12 +6,12 @@ module.exports = () => {
 
 router.get('/', (req, res,next) => {
 
-    return res.send('All Speakers');
+    return res.render('speakers');
 });
 
 router.get('/:name', (req, res,next) => {
 
-    return res.send(`speaker detail page for ${req.params.name}`);
+    return res.render('speakers/detail');
 });
 
 return router;
