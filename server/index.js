@@ -1,5 +1,5 @@
 const express = require('express');
-const createError = require('http-errors')
+const createError = require('http-errors');
 const path = require('path');
 const configs = require('./config/config');
 const SpeakerService = require('./services/SpeakerService');
@@ -37,7 +37,9 @@ app.use(async (req, res, next) =>{
     }
 });
 
-app.use('/', routes());
+app.use('/', routes({
+    speakerService     // passing object here to like speakerService: speakerService
+}));
 
 app.use((req, res, next) => {
     return next(createError(404,'File not found'));

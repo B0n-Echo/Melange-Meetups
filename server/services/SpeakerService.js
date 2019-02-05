@@ -24,6 +24,20 @@ class SpeakerService {
 
                 return JSON.parse(data).speakers;
         }
+
+        async getList(){
+                const data = await this.getData();
+                if(!data){
+                     return [];   
+                }
+
+                return data.map((speaker) => {
+                        return {name: speaker.name,
+                                shortName: speaker.shortname,
+                                title: speaker.title
+                        };
+                });
+        }
 }
 
 module.exports = SpeakerService;
