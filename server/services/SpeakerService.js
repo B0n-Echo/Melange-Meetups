@@ -54,8 +54,17 @@ class SpeakerService {
                 });
         }
 
-        async getFullList() {
+        async getAllArtWork() {
+                const data = await this.getData();
+                const artwork = data.reduce((acc, elm) => {
+                        if(elm.artwork) {
+                                acc = [...acc, ...elm.artwork];
+                        }
 
+                        return acc;
+                }, []);                                   // initializing the acc as an empty array.
+
+                return artwork;
         }
 }
 
