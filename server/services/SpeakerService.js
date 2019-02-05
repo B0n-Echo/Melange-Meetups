@@ -4,11 +4,11 @@ const util = require('util'); // to get a helper from utility to later add promi
 const readFile = util.promisify(fs.readFile); // creating a promise ready readFile Function. i.e. patching readfile with a promise.
 
 class SpeakerService {
-        constructor(datafile){
+        constructor(datafile) {
                 this.datafile = datafile;
         }
 
-        async getNames(){
+        async getNames() {
                 const data = await this.getData();
 
                 return data.map((speaker) => {
@@ -16,7 +16,7 @@ class SpeakerService {
                 });
         }
 
-        async getData(){
+        async getData() {
                 const data = await readFile(this.datafile, 'utf8');
                 if(!data){
                      return [];   
@@ -25,7 +25,7 @@ class SpeakerService {
                 return JSON.parse(data).speakers;
         }
 
-        async getList(){
+        async getList() {
                 const data = await this.getData();
                 if(!data){
                      return [];   
@@ -37,6 +37,25 @@ class SpeakerService {
                                 title: speaker.title
                         };
                 });
+        }
+
+        async getFullList() {
+                const data = await this.getData();
+                if(!data){
+                     return [];   
+                }
+
+                return data.map((speaker) => {
+                        return {name: speaker.name,
+                                shortName: speaker.shortname,
+                                title: speaker.title,
+                                summary: speaker.summary
+                        };
+                });
+        }
+
+        async getFullList() {
+
         }
 }
 

@@ -2,12 +2,16 @@ const express = require('express');
 
 const router = express.Router();
 
-module.exports = () => {
+module.exports = (param) => {
 
-router.get('/', (req, res,next) => {
+const {speakerService} = param;
 
+router.get('/', async(req, res,next) => {
+
+    const speakersList = await speakerService.getFullList();
     return res.render('speakers', {
-        page: 'All Speakers'
+        page: 'All Speakers',
+        speakersList
     });
 });
 

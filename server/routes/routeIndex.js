@@ -17,10 +17,10 @@ router.get('/', async(req, res,next) => {
     });
 });
 
-router.use('/speakers', speakersRoute());
+router.use('/speakers', speakersRoute(param));
 
 
-router.use('/feedback', feedbackRoute());
+router.use('/feedback', feedbackRoute(param));
 
 return router;
 

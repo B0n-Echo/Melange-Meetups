@@ -30,7 +30,6 @@ app.use(async (req, res, next) =>{
     try{
         const names = await speakerService.getNames();
         res.locals.speakerNames = names;
-        console.log(names);
         return next(); // never forget to return next from any middlewares as it will halt the program.
     } catch(err){
         return next(err);
