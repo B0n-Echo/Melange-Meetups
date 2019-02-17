@@ -24,11 +24,29 @@ router.get('/', async(req, res,next) => {
     });
 });
 
-router.get('/:name', (req, res,next) => {
+router.get('/:name', async(req, res,next) => {
+    try{
+        const promises = [];
 
-    return res.render('speakers/detail', {
-        page: req.params.name
-    });
+        promises.push(speakerService.getSpeaker(req.params.name));
+        promises.push(speakerService.getArtworkForSpeaker(req.params.name));
+
+        const results = await Promise.all(promises);
+
+        if (!results[0]) {
+            return next();
+        }
+
+        return res.render('speakers/detail', {
+            page: req.params.name,
+            speaker: results[0],
+            artwork: results[1],
+        });
+
+    } catch(err) {
+        return next(err);
+    }
+    
 });
 
 return router;

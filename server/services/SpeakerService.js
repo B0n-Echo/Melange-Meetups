@@ -66,6 +66,36 @@ class SpeakerService {
 
                 return artwork;
         }
+
+        async getSpeaker(shortName) {
+                const data = await this.getData();
+                const speaker = data.find((speaker) => {
+                        return speaker.shortname === shortName;
+                });
+
+                if(!speaker) return null;
+
+                return{
+                        title: speaker.title,
+                        name: speaker.name,
+                        shortname: speaker.shortname,
+                        description: speaker.description,
+                }
+        }
+
+        async getArtworkForSpeaker(shortName) {
+                const data = await this.getData();
+                const speaker = data.find((speaker) => {
+                        return speaker.shortname === shortName;
+                });
+
+                if(!speaker || !speaker.artwork) return null;
+
+                return speaker.artwork;
+        }
+
+
+
 }
 
 module.exports = SpeakerService;
