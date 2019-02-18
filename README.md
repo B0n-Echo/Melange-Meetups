@@ -11,6 +11,9 @@ Melange is a meetup product where like minded people meet to share their insight
 - Jade Template/ Template Engines
 - Creating Reusable Components
 - Working with Conditionals
+- using services
+- Post data from Feedback.
+- write Feedback data to datafile
 
 ***
 Working Project GIF (For Reference)
