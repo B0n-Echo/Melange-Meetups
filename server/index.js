@@ -2,12 +2,15 @@ const express = require('express');
 const createError = require('http-errors');
 const path = require('path');
 const configs = require('./config/config');
+const bodyParser = require('body-parser')
 const SpeakerService = require('./services/SpeakerService');
+const FeedbackService = require('./services/FeedbackService');
 const app = express();
 
-
 const config = configs[app.get('env')];
+
 const speakerService = new SpeakerService(config.data.speakers); // json data from config file.
+const feedbackService = new FeedbackService(config.data.feedback); // json data from config file.
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -19,8 +22,10 @@ if (app.get('env') === 'development') {
 }
 
 const routes = require('./routes/routeIndex');
-
 app.use(express.static('public'));
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.get('/favicon.ico', (req, res, next) => {
     return res.sendStatus(204); // to send empty response from the server.
 })
@@ -37,7 +42,8 @@ app.use(async (req, res, next) =>{
 });
 
 app.use('/', routes({
-    speakerService     // passing object here to like speakerService: speakerService
+    speakerService,     // passing object here to like speakerService: speakerService
+    feedbackService
 }));
 
 app.use((req, res, next) => {

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const speakersRoute = require('./speakers/speakersIndex');
-const feedbackRoute = require('./feedback/feedbackRoutes');
+const feedbackRoute = require('./feedback/feedbackIndex');
 
 module.exports = (param) => {
 
