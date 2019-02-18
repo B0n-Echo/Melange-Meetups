@@ -2,6 +2,7 @@ const fs = require('fs');
 const util = require('util'); // to get a helper from utility to later add promises to my readfile Func.
 
 const readFile = util.promisify(fs.readFile); // creating a promise ready readFile Function. i.e. patching readfile with a promise.
+const writeFile = util.promisify(fs.writeFile); // creating a promise ready readFile Function. i.e. patching readfile with a promise.
 
 class FeedbackService {
 
@@ -16,6 +17,14 @@ class FeedbackService {
                 }
 
                 return JSON.parse(data);
+        }
+
+        async addFeedbackEntry(name, title, message) {
+
+                const data = await this.getData();
+                data.unshift({name, title, message});
+
+                return writeFile(this.datafile, JSON.stringify(data));
         }
 
         async getFeedbackList() {
